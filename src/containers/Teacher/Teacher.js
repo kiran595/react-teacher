@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-// import teacher from "../teacher.json";
-import axios from "axios";
-import {Link} from "react-router-dom";
+import axios from "../../axios";
+import { Link } from "react-router-dom";
 
 class Teacher extends Component {
   state = {
@@ -10,27 +9,30 @@ class Teacher extends Component {
 
   componentDidMount() {
     axios
-      .get("https://7ygleisqmg.execute-api.us-east-2.amazonaws.com/dev")
-      .then(response => this.setState({data: response.data}))
-      .catch(err => console.log(err))
+      .get("/teacher")
+      .then(response => this.setState({ data: response.data }))
+      .catch(err => console.log(err));
   }
 
-  removeTeacherHandler = (id) => {
-    console.log(id)
-    axios.delete("https://7ygleisqmg.execute-api.us-east-2.amazonaws.com/dev", id)
+  removeTeacherHandler = id => {
+    console.log(id);
+    axios
+      .delete("/teacher", id)
       .then(res => {
-        this.setState({data: this.state.data.filter(item => item.id !== id)});
+        this.setState({ data: this.state.data.filter(item => item.id !== id) });
         console.log(res);
         console.log(res.data);
-      })
-  }
+      });
+  };
 
   render() {
     return (
       <div>
-      <Link to="/new-teacher">
-        <button type="button" class="btn btn-primary">Add Teacher</button>
-      </Link>
+        <Link to="/new-teacher">
+          <button type="button" className="btn btn-primary">
+            Add Teacher
+          </button>
+        </Link>
         <table className="table table-bordered">
           <tr>
             <th>SN</th>
@@ -47,8 +49,8 @@ class Teacher extends Component {
 
           {this.state.data.map((teacher, index) => {
             return (
-              <tr>
-                <td>{index +1}</td>
+              <tr key={index}>
+                <td>{index + 1}</td>
                 <td>{teacher.email}</td>
                 <td>{teacher.firstname}</td>
                 <td>{teacher.lastname}</td>
@@ -58,13 +60,28 @@ class Teacher extends Component {
                 <td>{teacher.city}</td>
                 <td>{teacher.roleteacher ? "Yes" : "No"}</td>
                 <td>
-                <button type="button" class="btn btn-danger" onClick={() => this.removeTeacherHandler(teacher.id)}>Remove Teacher</button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => this.removeTeacherHandler(teacher.id)}
+                  >
+                    Remove Teacher
+                  </button>
+                  <Link
+                    to={{
+                      pathname: "/edit-teacher/"+ teacher.id
+                    }}
+                  >
+                    <button type="button" className="btn btn-secondary">
+                      Update Teacher
+                    </button>
+                  </Link>
                 </td>
               </tr>
             );
           })}
         </table>
-      </div>    
+      </div>
     );
   }
 }
