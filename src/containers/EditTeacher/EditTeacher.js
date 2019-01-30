@@ -3,14 +3,7 @@ import axios from "../../axios";
 
 class EditTeacher extends Component {
   state = {
-    loadedTeacher: null,
-    updatedTeacher: {
-      email: "",
-      firstname: "",
-      lastname: "",
-      city: "",
-      description: ""
-    }
+    loadedTeacher: null
   };
 
   componentDidMount() {
@@ -27,11 +20,12 @@ class EditTeacher extends Component {
       if (
         !this.state.loadedTeacher ||
         (this.state.loadedTeacher &&
-          this.state.loadedTeacher.id !== +this.props.match.params.id) //since match.params.id is string , we add + to parse to equal
+          this.state.loadedTeacher.id !== this.props.match.params.id) //since match.params.id is string , we add + to parse to equal
       ) {
         axios
           .get("/teacher?id=" + this.props.match.params.id)
           .then(response => {
+            console.log("got data");
             this.setState({ loadedTeacher: response.data });
           });
       }
@@ -39,7 +33,15 @@ class EditTeacher extends Component {
   }
 
   updateDataHandler = () => {
-    const data = this.state.loadedTeacher;
+    const data = {
+        email: this.state.loadedTeacher.email,
+        firstname: this.state.loadedTeacher.firstname,
+        lastname: this.state.loadedTeacher.lastname,
+        city: this.state.loadedTeacher.city,
+        description: this.state.loadedTeacher.description
+      };
+
+    console.log({data});
 
     axios.put("/teacher", data).then(response => console.log(response));
   };
@@ -60,9 +62,9 @@ class EditTeacher extends Component {
               className="form-control"
               value={this.state.loadedTeacher.email}
               onChange={event => {
-                const updatedTeacher = { ...this.state.updatedTeacher };
-                updatedTeacher.email = event.target.value;
-                this.setState({ updatedTeacher });
+                const loadedTeacher = { ...this.state.loadedTeacher };
+                loadedTeacher.email = event.target.value;
+                this.setState({ loadedTeacher });
               }}
               placeholder="Enter email"
             />
@@ -74,9 +76,9 @@ class EditTeacher extends Component {
               className="form-control"
               value={this.state.loadedTeacher.firstname}
               onChange={event => {
-                const updatedTeacher = { ...this.state.updatedTeacher };
-                updatedTeacher.firstname = event.target.value;
-                this.setState({ updatedTeacher });
+                const loadedTeacher = { ...this.state.loadedTeacher };
+                loadedTeacher.firstname = event.target.value;
+                this.setState({ loadedTeacher });
               }}
               placeholder="Password"
             />
@@ -88,9 +90,9 @@ class EditTeacher extends Component {
               className="form-control"
               value={this.state.loadedTeacher.lastname}
               onChange={event => {
-                const updatedTeacher = { ...this.state.updatedTeacher };
-                updatedTeacher.lastname = event.target.value;
-                this.setState({ updatedTeacher });
+                const loadedTeacher = { ...this.state.loadedTeacher };
+                loadedTeacher.lastname = event.target.value;
+                this.setState({ loadedTeacher });
               }}
             />
           </div>
@@ -101,9 +103,9 @@ class EditTeacher extends Component {
               className="form-control"
               value={this.state.loadedTeacher.city}
               onChange={event => {
-                const updatedTeacher = { ...this.state.updatedTeacher };
-                updatedTeacher.city = event.target.value;
-                this.setState({ updatedTeacher });
+                const loadedTeacher = { ...this.state.loadedTeacher };
+                loadedTeacher.city = event.target.value;
+                this.setState({ loadedTeacher });
               }}
             />
           </div>
@@ -115,9 +117,9 @@ class EditTeacher extends Component {
               className="form-control"
               value={this.state.loadedTeacher.description}
               onChange={event => {
-                const updatedTeacher = { ...this.state.updatedTeacher };
-                updatedTeacher.description = event.target.value;
-                this.setState({ updatedTeacher });
+                const loadedTeacher = { ...this.state.loadedTeacher };
+                loadedTeacher.description = event.target.value;
+                this.setState({ loadedTeacher });
               }}
             />
           </div>
