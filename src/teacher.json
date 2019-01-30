@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "email": "nuri.bayram@me.com",
+      "firstname": "Nuri",
+      "lastname": "Bayram",
+      "gender": "Male",
+      "description": "Hi I am a cool teacher",
+      "dob": "05/12/1984",
+      "city": "Amsterdam",
+      "roleteacher": true
+    },
+    {
+      "id": 2,
+      "email": "john.do@me.com",
+      "firstname": "John",
+      "lastname": "Do",
+      "gender": "Male",
+      "description": "Welcome to my teacher description",
+      "dob": "02/01/1996",
+      "city": "Kathmandu",
+      "roleteacher": true
+    }
+  ]
