@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "../../axios";
 import { Link } from "react-router-dom";
+import {Table, Button} from 'reactstrap'
 
 class Teacher extends Component {
   state = {
@@ -29,11 +30,10 @@ class Teacher extends Component {
     return (
       <div>
         <Link to="/new-teacher">
-          <button type="button" className="btn btn-primary">
-            Add Teacher
-          </button>
+          <Button color="primary">Add Teacher</Button>
         </Link>
-        <table className="table table-bordered">
+        <Table>
+          <thead>
           <tr>
             <th>SN</th>
             <th>Email</th>
@@ -46,7 +46,8 @@ class Teacher extends Component {
             <th>RoleTeacher</th>
             <th>Actions</th>
           </tr>
-
+          </thead>
+          <tbody>
           {this.state.data.map((teacher, index) => {
             return (
               <tr key={index}>
@@ -60,27 +61,26 @@ class Teacher extends Component {
                 <td>{teacher.city}</td>
                 <td>{teacher.roleteacher ? "Yes" : "No"}</td>
                 <td>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
+                  <Button color="danger"
                     onClick={() => this.removeTeacherHandler(teacher.id)}
                   >
                     Remove Teacher
-                  </button>
+                  </Button>
                   <Link
                     to={{
                       pathname: "/edit-teacher/"+ teacher.id
                     }}
                   >
-                    <button type="button" className="btn btn-secondary">
+                    <Button color="warning">
                       Update Teacher
-                    </button>
+                    </Button>
                   </Link>
                 </td>
               </tr>
             );
           })}
-        </table>
+          </tbody>
+        </Table>
       </div>
     );
   }
