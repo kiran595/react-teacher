@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://6bekckwd2k.execute-api.us-east-2.amazonaws.com/dev'
+    baseURL: 'https://test-boocamp-123.firebaseio.com/'
 })
 
 instance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
